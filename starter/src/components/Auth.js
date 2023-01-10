@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import axios from 'axios'
+import AuthContext from '../store/authContext'
 
 const baseURL = 'https://socialmtn.devmountain.com'
 
@@ -7,6 +8,8 @@ const Auth = () => {
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 	const [register, setRegister] = useState(true)
+	
+	const authCtx = useContext(AuthContext)
 
 	const submitHandler = (eve) => {
 		eve.preventDefault()
@@ -16,7 +19,7 @@ const Auth = () => {
 		axios
 			.post(register ? baseURL + '/register' : baseURL + '/login', body)
 			.then(({ data }) => {
-				console.log(data)
+				authCtx.login(data.token, data.exp, data.userId)
 			})
 			.catch((err) => {
 				console.log(err)
