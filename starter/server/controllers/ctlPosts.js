@@ -10,9 +10,16 @@ module.exports = {
 		console.log('getCurrentUserPosts function')
 		res.sendStatus(200)
 	},
-	addPost: (req, res) => {
-		console.log('addPost function')
-		res.sendStatus(200)
+	addPost: async (req, res) => {
+		try {
+			const {title, content, status, userId} = req.body
+			await Post.create({title: title, content: content, privateStatus: status, userId: userId})
+			res.sendStatus(200)
+		} catch (error) {
+			console.log('getCurrentUserPosts function error')
+			console.log(error)
+			res.sendStatus(400)
+		}
 	},
 	editPost: (req, res) => {
 		console.log('editPost function')

@@ -16,8 +16,6 @@ const Auth = () => {
 
         const body = {username, password}
 
-		console.log(baseURL + '/register')
-		
 		axios
 			.post(register ? baseURL + '/register' : baseURL + '/login', body)
 			.then(({ data }) => {

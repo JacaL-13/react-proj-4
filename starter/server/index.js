@@ -18,8 +18,8 @@ const {
 	addPost,
 	editPost,
 	deletePost
-} = require('./controllers/posts')
-const { login, register } = require('./controllers/auth')
+} = require('./controllers/ctlPosts')
+const { login, register } = require('./controllers/ctlAuth')
 const { isAuthenticated } = require('./middleware/isAuthenticated')
 
 User.hasMany(Post, { foreignKey: 'userId' })
