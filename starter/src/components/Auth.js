@@ -2,7 +2,7 @@ import { useState, useContext } from 'react'
 import axios from 'axios'
 import AuthContext from '../store/authContext'
 
-const baseURL = 'https://socialmtn.devmountain.com'
+const baseURL = 'http://localhost:4501'
 
 const Auth = () => {
 	const [username, setUsername] = useState('')
@@ -16,6 +16,8 @@ const Auth = () => {
 
         const body = {username, password}
 
+		console.log(baseURL + '/register')
+		
 		axios
 			.post(register ? baseURL + '/register' : baseURL + '/login', body)
 			.then(({ data }) => {

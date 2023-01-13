@@ -1,6 +1,6 @@
-const {sequelize} = require('./util/database')
-const {Post} = require('./models/posts')
-const {User} = require('./models/users')
+const { sequelize } = require('./util/database')
+const { Post } = require('./models/mdlPosts')
+const { User } = require('./models/mdlUsers')
 
 const express = require('express')
 const cors = require('cors')
@@ -22,8 +22,8 @@ const {
 const { login, register } = require('./controllers/auth')
 const { isAuthenticated } = require('./middleware/isAuthenticated')
 
-User.hasMany(Post, { foreignKey: 'userId'})
-Post.belongsTo(User, { foreignKey: 'userId'})
+User.hasMany(Post, { foreignKey: 'userId' })
+Post.belongsTo(User, { foreignKey: 'userId' })
 
 app.post('/register', register)
 app.post('/login', login)
@@ -33,6 +33,9 @@ app.post('/posts', isAuthenticated, addPost)
 app.put('/posts/:id', isAuthenticated, editPost)
 app.delete('posts/:id', isAuthenticated, deletePost)
 
-sequelize.sync(/*{ force: true }*/).then(() => {
-	app.listen(PORT, () => console.log(`server running on port ${PORT}`))
-}).catch(err => console.log(err))
+sequelize
+	.sync(/*{ force: true }*/)
+	.then(() => {
+		app.listen(PORT, () => console.log(`server running on port ${PORT}`))
+	})
+	.catch((err) => console.log(err))

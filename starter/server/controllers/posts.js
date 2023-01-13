@@ -1,3 +1,6 @@
+const { Post } = require('../models/mdlPosts')
+const { User } = require('../models/mdlUsers')
+
 module.exports = {
 	getAllPosts: (req, res) => {
 		console.log('getAllPosts function')

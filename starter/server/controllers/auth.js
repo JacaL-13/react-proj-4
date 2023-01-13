@@ -1,5 +1,5 @@
 require('dotenv').config()
-const { User } = require('../models/users')
+const { User } = require('../models/mdlUsers')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
@@ -11,6 +11,7 @@ function createToken(username, id) {
 
 module.exports = {
 	register: async (req, res) => {
+		console.log('registering')
 		try {
 			const { username, password } = req.body
 
@@ -49,15 +50,18 @@ module.exports = {
 	},
 	login: async (req, res) => {
 		try {
-			const {username, password} = req.body
+			const { username, password } = req.body
 
 			const foundUser = await User.findOne({
 				where: { username: username }
 			})
 
 			if (foundUser) {
-				const isAuthenticated = bcrypt.compareSync(password, foundUser.hashedPass)
-				if(isAuthenticated){
+				const isAuthenticated = bcrypt.compareSync(
+					password,
+					foundUser.hashedPass
+				)
+				if (isAuthenticated) {
 					const token = createToken(
 						foundUser.dataValues.username,
 						foundUser.dataValues.id
@@ -69,8 +73,12 @@ module.exports = {
 						token,
 						exp
 					})
+				} else {
+					res.status(400).send('Invalid username or password.')
 				}
-			} 
+			} else {
+				res.status(400).send('Invalid username or password.')
+			}
 		} catch (error) {
 			console.log(error)
 		}
