@@ -50,17 +50,17 @@ const Profile = () => {
 
     const mappedPosts = posts.map(post => {
         return (
-            <div key={post.id} className='post-card'>
+            <div key={post.postId} className='post-card'>
                 <h2>{post.title}</h2>
                 <h4>{post.user.username}</h4>
                 <p>{post.content}</p>
                 {
                     userId === post.userId &&
                     <div>
-                        <button className='form-btn' onClick={() => updatePost(post.id, post.privateStatus)}>
+                        <button className='form-btn' onClick={() => updatePost(post.postId, post.privateStatus)}>
                             {post.privateStatus ? 'make public' : 'make private'}
                         </button>
-                        <button className='form-btn' style={{marginLeft: 10}} onClick={() => deletePost(post.id)}>
+                        <button className='form-btn' style={{marginLeft: 10}} onClick={() => deletePost(post.postId)}>
                             delete post
                         </button>
                     </div>

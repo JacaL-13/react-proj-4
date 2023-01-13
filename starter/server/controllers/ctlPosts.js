@@ -34,7 +34,7 @@ module.exports = {
 	},
 	addPost: async (req, res) => {
 		console.log(req.body)
-		
+
 		try {
 			const { title, content, status, userId } = req.body
 			await Post.create({
@@ -50,12 +50,31 @@ module.exports = {
 			res.sendStatus(400)
 		}
 	},
-	editPost: (req, res) => {
-		console.log('editPost function')
-		res.sendStatus(200)
+	editPost: async (req, res) => {
+		try {
+			const postId = req.params.id
+			const status = req.body.status
+
+			await Post.update(
+				{ privateStatus: status },
+				{ where: { postId: +postId } }
+			)
+			res.sendStatus(200)
+		} catch (error) {
+			console.log('editPost function error')
+			console.log(error)
+			res.sendStatus(400)
+		}
 	},
-	deletePost: (req, res) => {
-		console.log('deletePost function')
-		res.sendStatus(200)
+	deletePost: async (req, res) => {
+		try {
+			const postId = req.params.id
+			await Post.destroy({where: {postId: +postId}})
+			res.sendStatus(200)
+		} catch (error) {
+			console.log('deletePost function error')
+			console.log(error)
+			res.sendStatus(400)
+		}
 	}
 }
