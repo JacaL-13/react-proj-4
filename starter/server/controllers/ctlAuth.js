@@ -37,7 +37,7 @@ module.exports = {
 				const exp = Date.now() + 172800000
 				res.status(200).send({
 					username: newUser.dataValues.username,
-					userId: newUser.dataValues.id,
+					userId: newUser.dataValues.userId,
 					token,
 					exp
 				})
@@ -67,9 +67,10 @@ module.exports = {
 						foundUser.dataValues.id
 					)
 					const exp = Date.now() + 172800000
+					console.log(foundUser.dataValues)
 					res.status(200).send({
 						username: foundUser.dataValues.username,
-						userId: foundUser.dataValues.id,
+						userId: foundUser.dataValues.userId,
 						token,
 						exp
 					})

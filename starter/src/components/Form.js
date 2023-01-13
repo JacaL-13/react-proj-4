@@ -14,6 +14,8 @@ const Form = () => {
     const [content, setContent] = useState('')
     const [status, setStatus] = useState(true)
 
+    console.log(useContext(AuthContext).userId)
+    
     const handleSubmit = e => {
         e.preventDefault()
 
